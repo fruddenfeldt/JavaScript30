@@ -61,9 +61,23 @@
 <script>
   window.addEventListener('keydown', function(e) {
 
-    const audio2 = document.querySelector(`audio[code="${event.code}"]`)
-    console.log(audio2)
+    const audio = document.querySelector(`audio[code="${event.code}"]`)
+    const key = document.querySelector(`.key[code="${event.code}"]`)
+    if(!audio) return;
+    audio.play()
+    key.classList.add('playing')
+    audio.currentTime = 0;
   } );
+
+    function removeTransition(e) {
+      if(e.propertyName !== 'transform') return;
+      this.classList.remove('playing')
+    }
+
+
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+
 </script>
 
 
